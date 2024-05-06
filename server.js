@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors({origin:"*"}))
 app.post('/register', async(req,res)=>{
     try{
-        const{username,email,password,confirmpassword}=req.query;
+        const{username,email,password,confirmpassword}=req.body;
         let exist=await user.findOne({email:email});
         if(exist) return res.status(400).send('user exist');
         if(password!=confirmpassword){
@@ -36,9 +36,9 @@ app.post('/register', async(req,res)=>{
         return res.status(500).send('internall server error')
     }
 })
-app.get('/login', async (req,res)=>{
+app.post('/login', async(req,res)=>{
     try{
-        const {email,password}=req.query;
+        const {email,password}=req.body;
         let exist=await user.findOne({email});
         if(!exist) return res.status(400).send('user not found');
         if(exist.password !==password){
