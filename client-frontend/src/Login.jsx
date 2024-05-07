@@ -1,6 +1,6 @@
 import React,{useState,useContext} from 'react'
 import axios from 'axios';
-import {redirect} from 'react-router-dom'
+import {Navigate } from 'react-router-dom'
 import { store } from './App';
 const Login = () => {
     const[token,setToken]=useContext(store);
@@ -14,14 +14,16 @@ const Login = () => {
     const submitHandler=e=>{
         e.preventDefault();
         axios.post('http://localhost:5000/login',data).then(
-            (res)=>setToken(res.data.token)
-        )
-        if(token) return redirect("/myprofile")
-    }
+            res=>{setToken(res.data.token);}).catch(error => 
+                {console.error('Error occurred during login:', error);});
+        };
+        if(token) {
+            return <Navigate to="/myprofile" replace/>;
+        }
   return (
     <div className='reg-div'>
         <h3>login</h3>
-        <form  onSubmit={submitHandler} method="post">
+        <form  onSubmit={submitHandler} >
         <label htmlFor="email">email</label>
         <input type="email" onChange={changeHandler} name="email" id="email" placeholder="email"/>
         <label htmlFor="password">password</label>
@@ -29,7 +31,6 @@ const Login = () => {
         <button type="submit">Login</button>
         </form>
     </div>
-  )
-}
-
-export default Login
+  );
+};
+export default Login;

@@ -7,7 +7,7 @@
   "scripts": {
     "start":  "node server",
     "server":  "nodemon server",
-    "client": "npm run dev --prefix client-frontend",
+    "client-frontend": "npm run dev --prefix client-frontend",
     "dev":  "concurrently \"npm run server\" \"npm run client-frontend\" "
   },
   "keywords": [],
