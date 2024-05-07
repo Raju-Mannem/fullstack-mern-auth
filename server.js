@@ -5,7 +5,7 @@ import middleware from './middleware.js';
 import jsonwebtoken from 'jsonwebtoken';
 import cors from 'cors';
 const app=express();
-mongoose.connect("mongodb+srv://rajumannem71:authtest@cluster0.1frqrgs.mongodb.net/mydatabase?retryWrites=true&w=majority&appName=Cluster0").then(
+mongoose.connect("mongodburl").then(
     ()=>{console.log('db connection established')}
 )
 
